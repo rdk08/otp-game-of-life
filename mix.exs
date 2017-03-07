@@ -22,6 +22,7 @@ defmodule GameOfLife.Mixfile do
 
   defp deps do
     [{:gproc, "~> 0.5.0"},
-     {:excoveralls, "~> 0.6", only: :test}]
+     {:excoveralls, "~> 0.6", only: :test},
+     {:dialyxir, "~> 0.5", only: [:dev], runtime: false}]
   end
 end
