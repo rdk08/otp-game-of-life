@@ -14,16 +14,16 @@ defmodule GameOfLife.Cell.Supervisor do
 
   def start_link(name \\ @name) do
     Supervisor.start_link(__MODULE__, :ok, name: name)
-	end
+  end
 
   @spec start_child(pid | atom, key, {:dead|:alive, list}) :: {:ok, pid} | {:error, any}
   def start_child(pid \\ @name, key, initial_state) do
     Supervisor.start_child(pid, [key, initial_state])
-	end
+  end
 
   # Callbacks
 
   def init(:ok) do
     supervise([worker(Cell.Server, [])], @supervisor_opts)
-	end
+  end
 end
