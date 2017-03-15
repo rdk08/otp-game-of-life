@@ -19,7 +19,7 @@ defmodule GameOfLife.Simulation.StateTest do
 
   test "returns information if simulation has ended", %{name: name} do
     refute Simulation.State.simulation_ended?(name)
-    for _ <- 1..10, do: Simulation.State.next_generation(name)
+    for _ <- 1..10, do: Simulation.State.count_generation(name)
     assert Simulation.State.simulation_ended?(name)
   end
 end

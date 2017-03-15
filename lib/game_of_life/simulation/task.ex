@@ -22,7 +22,7 @@ defmodule GameOfLife.Simulation.Task do
 
   defp generation(simulation_opts) do
     Simulation.Server.run_generation
-    Simulation.State.next_generation
+    Simulation.State.count_generation
     Nasty.Server.mess_something_up(simulation_opts[:nasty_mode])
     sleep(simulation_opts[:sleep])
   end

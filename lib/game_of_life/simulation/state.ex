@@ -13,8 +13,8 @@ defmodule GameOfLife.Simulation.State do
     Agent.get(name, &(&1.generations))
   end
 
-  @spec next_generation(atom) :: :ok
-  def next_generation(name \\ @name) do
+  @spec count_generation(atom) :: :ok
+  def count_generation(name \\ @name) do
     Agent.update(name, &decrease_generations/1)
   end
 
