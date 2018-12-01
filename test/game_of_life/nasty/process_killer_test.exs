@@ -4,7 +4,7 @@ defmodule GameOfLife.Nasty.ProcessKillerTest do
   alias GameOfLife.Nasty
 
   setup do
-    pid = spawn(fn -> :timer.sleep 1000 end)
+    pid = spawn(fn -> :timer.sleep(1000) end)
     Process.register(pid, :test_process)
     {:ok, process: {"Random Process", pid}}
   end

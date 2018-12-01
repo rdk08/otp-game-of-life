@@ -15,11 +15,13 @@ defmodule GameOfLife.Simulation.Supervisor do
 
   def init(opts) do
     simulation_opts = Keyword.take(opts, ~w(generations sleep nasty_mode)a)
+
     children = [
       worker(GameOfLife.Simulation.State, [simulation_opts]),
       worker(GameOfLife.Simulation.Server, []),
       worker(GameOfLife.Simulation.Task, [simulation_opts], restart: :transient)
     ]
+
     supervise(children, @supervisor_opts)
   end
 end

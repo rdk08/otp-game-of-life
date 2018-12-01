@@ -16,7 +16,7 @@ defmodule GameOfLife.Cell.Supervisor do
     Supervisor.start_link(__MODULE__, :ok, name: name)
   end
 
-  @spec start_child(pid | atom, key, {:dead|:alive, list}) :: {:ok, pid} | {:error, any}
+  @spec start_child(pid | atom, key, {:dead | :alive, list}) :: {:ok, pid} | {:error, any}
   def start_child(pid \\ @name, key, initial_state) do
     Supervisor.start_child(pid, [key, initial_state])
   end

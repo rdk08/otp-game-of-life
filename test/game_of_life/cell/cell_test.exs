@@ -20,12 +20,15 @@ defmodule GameOfLife.CellTest do
       },
       changes: %{neighbour_states: [:alive]}
     }
+
     output = Cell.update(input.cell, input.changes)
+
     expected_output = %Cell{
       state: :dead,
       neighbours: [],
       neighbour_states: [:alive]
     }
+
     assert output == expected_output
   end
 
@@ -38,12 +41,15 @@ defmodule GameOfLife.CellTest do
       },
       neighbour_state: :dead
     }
+
     output = Cell.add_neighbour_state(input.cell, input.neighbour_state)
+
     expected_output = %Cell{
       state: :dead,
       neighbours: [],
       neighbour_states: [:dead]
     }
+
     assert output == expected_output
   end
 
@@ -56,12 +62,15 @@ defmodule GameOfLife.CellTest do
       },
       neighbour: {3, 3}
     }
+
     output = Cell.add_neighbour(input.cell, input.neighbour)
+
     expected_output = %Cell{
       state: :dead,
       neighbours: [{3, 3}],
       neighbour_states: []
     }
+
     assert output == expected_output
   end
 
@@ -75,12 +84,14 @@ defmodule GameOfLife.CellTest do
       %Cell{state: :dead, neighbour_states: times(3, :dead) ++ times(5, :alive)},
       %Cell{state: :dead, neighbour_states: times(2, :dead) ++ times(6, :alive)},
       %Cell{state: :dead, neighbour_states: times(1, :dead) ++ times(7, :alive)},
-      %Cell{state: :dead, neighbour_states: times(0, :dead) ++ times(8, :alive)},
+      %Cell{state: :dead, neighbour_states: times(0, :dead) ++ times(8, :alive)}
     ]
+
     output =
       input
       |> Enum.map(&Cell.next_generation/1)
-      |> Enum.map(&(&1.state))
+      |> Enum.map(& &1.state)
+
     expected_output = [
       :dead,
       :dead,
@@ -90,8 +101,9 @@ defmodule GameOfLife.CellTest do
       :dead,
       :dead,
       :dead,
-      :dead,
+      :dead
     ]
+
     assert output == expected_output
   end
 
@@ -105,12 +117,14 @@ defmodule GameOfLife.CellTest do
       %Cell{state: :alive, neighbour_states: times(3, :dead) ++ times(5, :alive)},
       %Cell{state: :alive, neighbour_states: times(2, :dead) ++ times(6, :alive)},
       %Cell{state: :alive, neighbour_states: times(1, :dead) ++ times(7, :alive)},
-      %Cell{state: :alive, neighbour_states: times(0, :dead) ++ times(8, :alive)},
+      %Cell{state: :alive, neighbour_states: times(0, :dead) ++ times(8, :alive)}
     ]
+
     output =
       input
       |> Enum.map(&Cell.next_generation/1)
-      |> Enum.map(&(&1.state))
+      |> Enum.map(& &1.state)
+
     expected_output = [
       :dead,
       :dead,
@@ -120,8 +134,9 @@ defmodule GameOfLife.CellTest do
       :dead,
       :dead,
       :dead,
-      :dead,
+      :dead
     ]
+
     assert output == expected_output
   end
 end

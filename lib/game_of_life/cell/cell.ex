@@ -5,10 +5,7 @@ defmodule GameOfLife.Cell do
             neighbours: [],
             neighbour_states: []
 
-  @type t :: %Cell{
-              state: :alive | :dead,
-              neighbours: list,
-              neighbour_states: list}
+  @type t :: %Cell{state: :alive | :dead, neighbours: list, neighbour_states: list}
 
   @spec state(t) :: t
   def state(cell), do: cell
@@ -18,24 +15,25 @@ defmodule GameOfLife.Cell do
 
   @spec add_neighbour(t, {integer, integer}) :: t
   def add_neighbour(cell, neighbour) do
-    changes = %{neighbours: [neighbour|cell.neighbours]}
+    changes = %{neighbours: [neighbour | cell.neighbours]}
     Cell.update(cell, changes)
   end
 
   @spec add_neighbour_state(t, :dead | :alive) :: t
   def add_neighbour_state(cell, neighbour_state) do
-    changes = %{neighbour_states: [neighbour_state|cell.neighbour_states]}
+    changes = %{neighbour_states: [neighbour_state | cell.neighbour_states]}
     Cell.update(cell, changes)
   end
 
   @spec next_generation(t) :: t
-  def next_generation(%Cell{neighbour_states: neighbour_states, state: state}=cell) do
+  def next_generation(%Cell{neighbour_states: neighbour_states, state: state} = cell) do
     changes =
       neighbour_states
       |> Enum.filter(&alive?/1)
-      |> Enum.count
+      |> Enum.count()
       |> determine_state(state)
       |> clear_neighbour_states
+
     Cell.update(cell, changes)
   end
 
@@ -44,12 +42,15 @@ defmodule GameOfLife.Cell do
   defp determine_state(alive_neighbours, :alive) when alive_neighbours < 2 do
     %{state: :dead}
   end
+
   defp determine_state(alive_neighbours, :alive) when alive_neighbours > 3 do
     %{state: :dead}
   end
+
   defp determine_state(alive_neighbours, :dead) when alive_neighbours == 3 do
     %{state: :alive}
   end
+
   defp determine_state(_, :alive), do: %{state: :alive}
   defp determine_state(_, :dead), do: %{state: :dead}
 

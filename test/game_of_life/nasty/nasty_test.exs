@@ -10,11 +10,14 @@ defmodule GameOfLife.NastyTest do
         "Another Process"
       ]
     }
+
     output = Enum.map(input.names, &Nasty.format(&1))
+
     expected_output = [
       " (╯°□°）╯︵ ssǝɔoɹd ɯopuɐɹ",
       " (╯°□°）╯︵ ssǝɔoɹd ɹǝɥʇouɐ"
     ]
+
     assert output == expected_output
   end
 end

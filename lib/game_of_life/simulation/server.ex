@@ -24,10 +24,11 @@ defmodule GameOfLife.Simulation.Server do
   end
 
   def handle_call({:run_generation}, _, _) do
-    Universe.Server.snapshot
-    |> Formatter.Server.format
-    |> Console.Server.draw_board
-    Universe.Server.next_generation
+    Universe.Server.snapshot()
+    |> Formatter.Server.format()
+    |> Console.Server.draw_board()
+
+    Universe.Server.next_generation()
     {:reply, :ok, nil}
   end
 end

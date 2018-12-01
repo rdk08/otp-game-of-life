@@ -1,7 +1,7 @@
 defmodule GameOfLife.Nasty.ProcessPicker do
   alias GameOfLife.{Cell, Universe}
 
-  @spec random(list(atom)) :: {String.t, pid}
+  @spec random(list(atom)) :: {String.t(), pid}
   def random(process_pool) do
     name = get_name(process_pool)
     pid = get_pid(name)
@@ -13,18 +13,19 @@ defmodule GameOfLife.Nasty.ProcessPicker do
   end
 
   defp get_pid(GameOfLife.Cell.Server) do
-    Universe.Server.snapshot
-    |> Map.keys
-    |> Enum.random
-    |> Cell.Server.whereis
+    Universe.Server.snapshot()
+    |> Map.keys()
+    |> Enum.random()
+    |> Cell.Server.whereis()
   end
+
   defp get_pid(name) do
     Process.whereis(name)
   end
 
   defp format(name) do
     name
-    |> Atom.to_string
+    |> Atom.to_string()
     |> String.split(".")
     |> Enum.slice(-2..-1)
     |> Enum.join(" ")

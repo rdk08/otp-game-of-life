@@ -18,6 +18,7 @@ defmodule GameOfLife.Output.Supervisor do
       worker(GameOfLife.Output.Console.Server, []),
       worker(GameOfLife.Output.Formatter.Server, [])
     ]
+
     supervise(children, @supervisor_opts)
   end
 end

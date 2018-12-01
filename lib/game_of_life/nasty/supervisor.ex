@@ -15,6 +15,7 @@ defmodule GameOfLife.Nasty.Supervisor do
     children = [
       worker(GameOfLife.Nasty.Server, [])
     ]
+
     supervise(children, strategy: :one_for_one)
   end
 end

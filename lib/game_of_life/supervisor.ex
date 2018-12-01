@@ -19,6 +19,7 @@ defmodule GameOfLife.Supervisor do
       supervisor(GameOfLife.Simulation.Supervisor, [opts]),
       supervisor(GameOfLife.Nasty.Supervisor, [])
     ]
+
     supervise(children, strategy: :one_for_all)
   end
 end

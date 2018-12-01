@@ -18,9 +18,11 @@ defmodule GameOfLife.Universe.Supervisor do
   def init(opts) do
     universe_opts = Keyword.take(opts, ~w(dimensions alive_cells)a)
     universe = Universe.Initializer.initialize(universe_opts, Cell.Supervisor)
+
     children = [
       worker(GameOfLife.Universe.Server, [universe])
     ]
+
     supervise(children, @supervisor_opts)
   end
 end

@@ -32,7 +32,8 @@ defmodule GameOfLife.Universe.Server do
   def handle_call({:snapshot}, _from, universe) do
     snapshot =
       universe.cells
-      |> Enum.into(%{}, &({&1, Cell.Server.state(&1).state}))
+      |> Enum.into(%{}, &{&1, Cell.Server.state(&1).state})
+
     {:reply, snapshot, universe}
   end
 

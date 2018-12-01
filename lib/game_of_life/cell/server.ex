@@ -50,6 +50,7 @@ defmodule GameOfLife.Cell.Server do
   def handle_call({:broadcast_state}, _, cell) do
     cell.neighbours
     |> Enum.map(&Cell.Server.send_state(&1, cell.state))
+
     {:reply, :ok, cell}
   end
 

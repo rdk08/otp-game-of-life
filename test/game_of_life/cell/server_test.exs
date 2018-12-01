@@ -12,16 +12,18 @@ defmodule GameOfLife.Cell.ServerTest do
 
   test "returns cell state", %{key: key} do
     output = Cell.Server.state(key)
+
     expected_output = %Cell{
       state: :alive,
       neighbours: [],
       neighbour_states: []
     }
+
     assert output == expected_output
   end
 
   test "adds neighbour", %{key: key} do
-    [neighbour_key|_] = start_neighbours(1, :dead)
+    [neighbour_key | _] = start_neighbours(1, :dead)
     Cell.Server.add_neighbour(key, neighbour_key)
     output = Cell.Server.state(key).neighbours
     expected_output = [neighbour_key]
@@ -40,10 +42,12 @@ defmodule GameOfLife.Cell.ServerTest do
     Enum.map(neighbour_keys, &Cell.Server.add_neighbour(key, &1))
 
     Cell.Server.broadcast_state(key)
+
     output =
       neighbour_keys
       |> Enum.map(&Cell.Server.state(&1).neighbour_states)
-      |> List.flatten
+      |> List.flatten()
+
     expected_output = ~w(alive alive alive alive alive alive alive alive)a
     assert output == expected_output
   end

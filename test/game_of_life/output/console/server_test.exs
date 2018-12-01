@@ -15,17 +15,19 @@ defmodule GameOfLife.Output.Console.ServerTest do
         rows: [
           [:dead, :alive, :dead],
           [:dead, :dead, :alive],
-          [:alive, :alive, :alive],
+          [:alive, :alive, :alive]
         ]
       }
     }
+
     output = Console.Server.draw_board(pid, input.board)
-    expected_output =
-      """
-        ■  
-          ■
-      ■ ■ ■
-      """
+
+    expected_output = """
+      ■  
+        ■
+    ■ ■ ■
+    """
+
     assert output == expected_output
   end
 
@@ -33,6 +35,7 @@ defmodule GameOfLife.Output.Console.ServerTest do
     input = %{
       text: "Sample text"
     }
+
     output = Console.Server.draw_text(pid, input.text)
     expected_output = "Sample text"
     assert output == expected_output

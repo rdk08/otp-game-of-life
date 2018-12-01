@@ -11,12 +11,12 @@ defmodule GameOfLife.Output.Console.Server do
     GenServer.start_link(__MODULE__, :ok, name: name)
   end
 
-  @spec draw_board(pid | atom, %Board{}) :: :ok | String.t
-  def draw_board(pid \\ @name, %Board{}=board) do
+  @spec draw_board(pid | atom, %Board{}) :: :ok | String.t()
+  def draw_board(pid \\ @name, %Board{} = board) do
     GenServer.call(pid, {:draw_board, board})
   end
 
-  @spec draw_text(pid | atom, String.t) :: :ok | String.t
+  @spec draw_text(pid | atom, String.t()) :: :ok | String.t()
   def draw_text(pid \\ @name, text) do
     GenServer.call(pid, {:draw_text, text})
   end

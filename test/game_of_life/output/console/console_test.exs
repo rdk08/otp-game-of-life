@@ -9,17 +9,19 @@ defmodule GameOfLife.Output.ConsoleTest do
         rows: [
           [:dead, :dead, :dead],
           [:dead, :dead, :dead],
-          [:dead, :dead, :dead],
+          [:dead, :dead, :dead]
         ]
       }
     }
+
     output = Console.draw_board(input.board)
-    expected_output =
-      """
-           
-           
-           
-      """
+
+    expected_output = """
+         
+         
+         
+    """
+
     assert output == expected_output
   end
 
@@ -29,17 +31,19 @@ defmodule GameOfLife.Output.ConsoleTest do
         rows: [
           [:dead, :alive, :dead],
           [:dead, :dead, :alive],
-          [:alive, :alive, :alive],
+          [:alive, :alive, :alive]
         ]
       }
     }
+
     output = Console.draw_board(input.board)
-    expected_output =
-      """
-        ■  
-          ■
-      ■ ■ ■
-      """
+
+    expected_output = """
+      ■  
+        ■
+    ■ ■ ■
+    """
+
     assert output == expected_output
   end
 
@@ -47,6 +51,7 @@ defmodule GameOfLife.Output.ConsoleTest do
     input = %{
       text: "Sample text"
     }
+
     output = Console.draw_text(input.text)
     expected_output = "Sample text"
     assert output == expected_output

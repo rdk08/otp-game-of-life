@@ -13,7 +13,6 @@ defmodule GameOfLife.Universe.InitializerTest do
   @tag :integration
   test "initializes universe with random state",
        %{cell_supervisor: cell_supervisor} do
-
     input = %{
       opts: [
         dimensions: {3, 3},
@@ -21,6 +20,7 @@ defmodule GameOfLife.Universe.InitializerTest do
       ],
       cell_supervisor: cell_supervisor
     }
+
     output = Universe.Initializer.initialize(input.opts, input.cell_supervisor)
     assert %Universe{cells: cells, dimensions: {3, 3}} = output
     assert Enum.all?(cells, &Process.alive?(Cell.Server.whereis(&1)))
@@ -30,7 +30,6 @@ defmodule GameOfLife.Universe.InitializerTest do
   @tag :integration
   test "initializes universe with predefined state",
        %{cell_supervisor: cell_supervisor} do
-
     input = %{
       opts: [
         dimensions: {3, 3},
@@ -38,14 +37,23 @@ defmodule GameOfLife.Universe.InitializerTest do
       ],
       cell_supervisor: cell_supervisor
     }
+
     universe = Universe.Initializer.initialize(input.opts, input.cell_supervisor)
     {:ok, pid} = Universe.Server.start_link(universe)
     output = Universe.Server.snapshot(pid)
+
     expected_output = %{
-      {0, 0} => :dead, {1, 0} => :dead, {2, 0} => :dead,
-      {0, 1} => :alive, {1, 1} => :alive, {2, 1} => :dead,
-      {0, 2} => :dead, {1, 2} => :dead, {2, 2} => :alive,
+      {0, 0} => :dead,
+      {1, 0} => :dead,
+      {2, 0} => :dead,
+      {0, 1} => :alive,
+      {1, 1} => :alive,
+      {2, 1} => :dead,
+      {0, 2} => :dead,
+      {1, 2} => :dead,
+      {2, 2} => :alive
     }
+
     assert output == expected_output
     assert %Universe{cells: cells, dimensions: {3, 3}} = universe
     assert Enum.all?(cells, &Process.alive?(Cell.Server.whereis(&1)))
