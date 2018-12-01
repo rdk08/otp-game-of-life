@@ -1,15 +1,13 @@
 defmodule GameOfLife.Output.Console do
   alias GameOfLife.Output.Board
 
-  @env Mix.env()
-
-  @spec draw_board(%Board{}) :: String.t() | :ok
-  def draw_board(board) do
-    clear(@env)
+  @spec draw_board(%Board{}, atom) :: String.t() | :ok
+  def draw_board(board, env) do
+    clear(env)
 
     board
     |> representation
-    |> draw(@env)
+    |> draw(env)
   end
 
   defp clear(env) do
@@ -36,10 +34,10 @@ defmodule GameOfLife.Output.Console do
   defp cell_representation(:dead), do: " "
   defp cell_representation(:alive), do: "■"
 
-  @spec draw_text(String.t()) :: String.t() | :ok
-  def draw_text(text) do
+  @spec draw_text(String.t(), atom) :: String.t() | :ok
+  def draw_text(text, env) do
     text
-    |> draw(@env)
+    |> draw(env)
   end
 
   defp draw(string, :test), do: string

@@ -25,7 +25,7 @@ defmodule GameOfLife.Simulation.Task do
   defp generation(simulation_opts) do
     Simulation.Server.run_generation()
     Simulation.State.count_generation()
-    ChaosMonkey.Server.mess_something_up(simulation_opts[:chaos_monkey])
+    ChaosMonkey.Server.mess_something_up(chaos_monkey: simulation_opts[:chaos_monkey])
     sleep(simulation_opts[:sleep])
   end
 

@@ -14,7 +14,7 @@ defmodule GameOfLife.Output.ConsoleTest do
       }
     }
 
-    output = Console.draw_board(input.board)
+    output = Console.draw_board(input.board, :test)
 
     expected_output = """
          
@@ -36,7 +36,7 @@ defmodule GameOfLife.Output.ConsoleTest do
       }
     }
 
-    output = Console.draw_board(input.board)
+    output = Console.draw_board(input.board, :test)
 
     expected_output = """
       ■  
@@ -52,8 +52,18 @@ defmodule GameOfLife.Output.ConsoleTest do
       text: "Sample text"
     }
 
-    output = Console.draw_text(input.text)
+    output = Console.draw_text(input.text, :test)
     expected_output = "Sample text"
+    assert output == expected_output
+  end
+
+  test "outputs text in console" do
+    input = %{
+      text: "Sample text"
+    }
+
+    output = Console.draw_text(input.text, :test_with_io)
+    expected_output = :ok
     assert output == expected_output
   end
 end

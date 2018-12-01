@@ -3,8 +3,9 @@ defmodule GameOfLife.ChaosMonkey.Server do
 
   alias GameOfLife.{ChaosMonkey, Output}
 
+  @env Mix.env()
+  @mess_up_frequency 25
   @name __MODULE__
-  @mess_up_frequency 0.2
   @process_pool [
     GameOfLife.Output.Console.Server,
     GameOfLife.Output.Formatter.Server,
@@ -12,35 +13,43 @@ defmodule GameOfLife.ChaosMonkey.Server do
     GameOfLife.Universe.Server,
     GameOfLife.Simulation.Server
   ]
+
   # API
 
-  def start_link(name \\ @name) do
-    GenServer.start_link(__MODULE__, :ok, name: name)
+  def start_link(name \\ @name, process_pool \\ @process_pool) do
+    GenServer.start_link(__MODULE__, %{process_pool: process_pool}, name: name)
   end
 
-  @spec mess_something_up(pid | atom, boolean) :: no_return | :noop
-  def mess_something_up(pid \\ @name, chaos_monkey) do
-    cond do
-      chaos_monkey and :rand.uniform() < @mess_up_frequency ->
-        GenServer.cast(pid, {:mess_something_up})
+  @spec mess_something_up(pid | atom, keyword) :: no_return | :noop
+  def mess_something_up(pid \\ @name, opts)
 
-      true ->
-        :noop
+  def mess_something_up(pid, chaos_monkey: true) do
+    if mess_up?() do
+      GenServer.cast(pid, {:mess_something_up})
+    else
+      :noop
     end
+  end
+
+  def mess_something_up(_, _), do: :noop
+
+  defp mess_up?() do
+    random_number = Enum.random(1..100)
+    random_number <= @mess_up_frequency
   end
 
   # Callbacks
 
-  def init(:ok) do
-    {:ok, nil}
+  def init(state) do
+    {:ok, state}
   end
 
-  def handle_cast({:mess_something_up}, _) do
-    @process_pool
+  def handle_cast({:mess_something_up}, %{process_pool: process_pool} = state) do
+    process_pool
     |> ChaosMonkey.ProcessPicker.random()
     |> ChaosMonkey.ProcessKiller.kill()
-    |> Output.Console.draw_text()
+    |> Output.Console.draw_text(@env)
 
-    {:noreply, nil}
+    {:noreply, state}
   end
 end

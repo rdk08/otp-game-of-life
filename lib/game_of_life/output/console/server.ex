@@ -4,6 +4,7 @@ defmodule GameOfLife.Output.Console.Server do
   alias GameOfLife.Output.{Board, Console}
 
   @name __MODULE__
+  @env Mix.env()
 
   # API
 
@@ -28,10 +29,10 @@ defmodule GameOfLife.Output.Console.Server do
   end
 
   def handle_call({:draw_board, board}, _, _) do
-    {:reply, Console.draw_board(board), nil}
+    {:reply, Console.draw_board(board, @env), nil}
   end
 
   def handle_call({:draw_text, text}, _, _) do
-    {:reply, Console.draw_text(text), nil}
+    {:reply, Console.draw_text(text, @env), nil}
   end
 end
