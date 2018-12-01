@@ -1,4 +1,4 @@
-defmodule GameOfLife.Nasty.ProcessPicker do
+defmodule GameOfLife.ChaosMonkey.ProcessPicker do
   alias GameOfLife.{Cell, Universe}
 
   @spec random(list(atom)) :: {String.t(), pid}

@@ -1,7 +1,7 @@
-defmodule GameOfLife.NastyTest do
+defmodule GameOfLife.ChaosMonkeyTest do
   use ExUnit.Case, async: true
 
-  alias GameOfLife.Nasty
+  alias GameOfLife.ChaosMonkey
 
   test "formats killed process' name properly" do
     input = %{
@@ -11,7 +11,7 @@ defmodule GameOfLife.NastyTest do
       ]
     }
 
-    output = Enum.map(input.names, &Nasty.format(&1))
+    output = Enum.map(input.names, &ChaosMonkey.format(&1))
 
     expected_output = [
       " (╯°□°）╯︵ ssǝɔoɹd ɯopuɐɹ",

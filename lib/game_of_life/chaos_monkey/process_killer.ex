@@ -1,9 +1,9 @@
-defmodule GameOfLife.Nasty.ProcessKiller do
-  alias GameOfLife.Nasty
+defmodule GameOfLife.ChaosMonkey.ProcessKiller do
+  alias GameOfLife.ChaosMonkey
 
   @spec kill({String.t(), pid}) :: String.t()
   def kill({name, pid}) do
     Process.exit(pid, :kill)
-    Nasty.format(name)
+    ChaosMonkey.format(name)
   end
 end

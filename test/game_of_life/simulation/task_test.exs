@@ -13,7 +13,7 @@ defmodule GameOfLife.Simulation.TaskTest do
     simulation_opts = [
       generations: 8,
       sleep: 0,
-      nasty_mode: false
+      chaos_monkey: false
     ]
 
     {:ok, cell_supervisor} = Cell.Supervisor.start_link()

@@ -1,5 +1,5 @@
 defmodule GameOfLife.Simulation.Task do
-  alias GameOfLife.{Nasty, Simulation}
+  alias GameOfLife.{ChaosMonkey, Simulation}
   alias GameOfLife.Output.Console
 
   def start_link(simulation_opts) do
@@ -25,7 +25,7 @@ defmodule GameOfLife.Simulation.Task do
   defp generation(simulation_opts) do
     Simulation.Server.run_generation()
     Simulation.State.count_generation()
-    Nasty.Server.mess_something_up(simulation_opts[:nasty_mode])
+    ChaosMonkey.Server.mess_something_up(simulation_opts[:chaos_monkey])
     sleep(simulation_opts[:sleep])
   end
 

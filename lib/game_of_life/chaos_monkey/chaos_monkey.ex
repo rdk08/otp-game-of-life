@@ -1,4 +1,4 @@
-defmodule GameOfLife.Nasty do
+defmodule GameOfLife.ChaosMonkey do
   @spec format(String.t()) :: String.t()
   def format(name) do
     " (╯°□°）╯︵ " <> flip(name)

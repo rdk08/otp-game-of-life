@@ -1,7 +1,7 @@
-defmodule GameOfLife.Nasty.ProcessPickerTest do
+defmodule GameOfLife.ChaosMonkey.ProcessPickerTest do
   use ExUnit.Case
 
-  alias GameOfLife.{Nasty, Simulation}
+  alias GameOfLife.{ChaosMonkey, Simulation}
   alias GameOfLife.Output.{Console, Formatter}
 
   setup do
@@ -13,7 +13,7 @@ defmodule GameOfLife.Nasty.ProcessPickerTest do
 
   @tag :integration
   test "picks random process from process pool", %{pool: pool} do
-    output = Nasty.ProcessPicker.random(pool)
+    output = ChaosMonkey.ProcessPicker.random(pool)
     {formatted_name, pid} = output
 
     expected_names = [

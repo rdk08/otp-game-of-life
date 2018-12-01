@@ -1,4 +1,4 @@
-defmodule GameOfLife.Nasty.Supervisor do
+defmodule GameOfLife.ChaosMonkey.Supervisor do
   use Supervisor
 
   @name __MODULE__
@@ -13,7 +13,7 @@ defmodule GameOfLife.Nasty.Supervisor do
 
   def init(:ok) do
     children = [
-      worker(GameOfLife.Nasty.Server, [])
+      worker(GameOfLife.ChaosMonkey.Server, [])
     ]
 
     supervise(children, strategy: :one_for_one)

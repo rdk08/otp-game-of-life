@@ -5,4 +5,4 @@ config :game_of_life,
   alive_cells: :random,   # initial universe state: predefined or random
   generations: 500,       # number of generations to run
   sleep: 150,             # sleep time (in miliseconds) between each generation
-  nasty_mode: false       # randomly kills processes if set to true
+  chaos_monkey: false     # randomly kills processes if set to true

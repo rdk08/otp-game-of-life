@@ -14,7 +14,7 @@ defmodule GameOfLife.Simulation.Supervisor do
   # Callbacks
 
   def init(opts) do
-    simulation_opts = Keyword.take(opts, ~w(generations sleep nasty_mode)a)
+    simulation_opts = Keyword.take(opts, ~w(generations sleep chaos_monkey)a)
 
     children = [
       worker(GameOfLife.Simulation.State, [simulation_opts]),
